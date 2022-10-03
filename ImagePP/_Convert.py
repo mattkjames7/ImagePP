@@ -75,6 +75,11 @@ def _Convert(ppapath):
 			out.yg[i].append(out.y[i][out.grps[i][j]])
 	print()
 	print('Done converting')
+	
+	#sort by time
+	srt = np.argsort(out.utc)
+	out = out[srt]
+	
 	#save it
 	binfile = Globals.DataPath + 'pp.bin'
 	pf.SaveObject(out,binfile)

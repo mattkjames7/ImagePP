@@ -11,3 +11,5 @@ except:
 TmpPath = os.getenv('HOME')+'/.tmp/'
 if not os.path.isdir(TmpPath):
 	os.system('mkdir -pv '+TmpPath)
+
+Data = None
