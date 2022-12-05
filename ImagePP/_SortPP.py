@@ -157,7 +157,7 @@ def _Regroup(grps,x,y,dmax):
 
 	return grps
 
-def _SortPP(x,y):
+def _SortPP(x,y,dmax=0.5):
 	
 	#create a matrix of all of the distances between each pair of points
 	n = np.size(x)
@@ -180,7 +180,7 @@ def _SortPP(x,y):
 	
 	
 	#split into groups
-	grps = _SplitGroups(ind,d,0.5)
+	grps = _SplitGroups(ind,d,dmax)
 	
 	#rejoin some groups if possible
 	#this definitely doesn't work

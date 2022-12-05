@@ -6,6 +6,7 @@ import DateTimeTools as TT
 import PyFileIO as pf
 from . import Globals
 from ._SortPP import _SortPP
+from ._ReadCSV import _ReadAllCSV
 
 def _Convert(ppapath):
 	
@@ -36,6 +37,20 @@ def _Convert(ppapath):
 			
 		n += 1
 	print()
+
+	
+
+	#read in additional csv files
+	cDate,cut,csv = _ReadAllCSV()
+
+	#combine
+	Date = Date + cDate
+	ut = ut + cut
+	ppa = ppa + csv
+	n = len(Date)
+	iscsv = np.zeros(n,dtype='bool')
+	iscsv[len(cDate):] = True
+
 	print('Done reading')
 	#create an output data type
 	dtype = [	('Date','int32'),
@@ -67,7 +82,11 @@ def _Convert(ppapath):
 		out.Sn[i] = ppa[i][3]
 		out.x[i] = out.L[i]*np.cos(phi)
 		out.y[i] = out.L[i]*np.sin(phi)
-		out.grps[i] = _SortPP(out.x[i],out.y[i])
+		if iscsv[i]:
+			dmax = 2.0
+		else:
+			dmax = 0.5
+		out.grps[i] = _SortPP(out.x[i],out.y[i],dmax)
 		out.ng[i] = len(out.grps[i])
 		out.xg[i] = []
 		out.yg[i] = []

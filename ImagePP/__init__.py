@@ -11,3 +11,7 @@ from ._Convert import _Convert
 from .LoadData import LoadData 
 from .GetPP import GetPP
 from .PlotPP import PlotPP
+
+from ._ReadCSV import _ReadAllCSV
+
+from .Browse import Browse

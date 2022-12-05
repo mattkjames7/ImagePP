@@ -2,7 +2,7 @@ import numpy as np
 import os
 
 ModulePath = os.path.dirname(__file__)+'/'
-StationPath = ModulePath+'__data/'
+ModuleDataPath = ModulePath+'__data/'
 try:
 	DataPath = os.getenv('PLASMAPAUSE_DATA')+'/'
 except:

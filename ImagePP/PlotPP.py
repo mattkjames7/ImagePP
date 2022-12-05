@@ -2,9 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import DateTimeTools as TT
 from .GetPP import GetPP
+from .PlotPlanet import PlotPlanet
 
 
-def PlotPP(*args,fig=None,maps=[1,1,0,0],**kwargs):
+def PlotPP(*args,fig=None,maps=[1,1,0,0],Scatter=False,**kwargs):
 	
 	data = GetPP(*args)
 	
@@ -28,6 +29,10 @@ def PlotPP(*args,fig=None,maps=[1,1,0,0],**kwargs):
 		kwargs['color'] = 'black'
 
 	for x,y in zip(data.xg,data.yg):
-		ax.plot(y,x,**kwargs)
+		if Scatter:
+			ax.scatter(y,x,marker='.',**kwargs)
+		else:
+			ax.plot(y,x,marker=',',**kwargs)
 		
+	PlotPlanet(ax)
 	return ax
