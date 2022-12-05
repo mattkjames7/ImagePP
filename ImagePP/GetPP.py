@@ -16,6 +16,7 @@ def GetPP(*args):
 	
 	dt = np.abs(utc - data.utc)
 	I = dt.argmin()
+	print(I)
 	if dt[I] > 1.0:
 		return None
 	else:

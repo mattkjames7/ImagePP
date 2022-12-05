@@ -56,7 +56,8 @@ def _Convert(ppapath):
 	#fill them in
 	out.Date = np.array(Date)
 	out.ut = np.array(ut)
-	out.utc = TT.ContUT(out.Date,out.ut)
+
+
 	for i in range(0,n):
 		print('\rConverting File {:d} of {:d}'.format(i+1,n),end='')
 		out.L[i] = ppa[i][0]
@@ -75,10 +76,11 @@ def _Convert(ppapath):
 			out.yg[i].append(out.y[i][out.grps[i][j]])
 	print()
 	print('Done converting')
-	
+
 	#sort by time
-	srt = np.argsort(out.utc)
+	srt = np.lexsort((out.ut,out.Date))
 	out = out[srt]
+	out.utc = TT.ContUT(out.Date,out.ut)
 	
 	#save it
 	binfile = Globals.DataPath + 'pp.bin'
