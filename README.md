@@ -48,6 +48,7 @@ We can also plot that plasmapause (beware, the points are not necessarily stored
 ```python
 ax = ipp.PlotPP(Date,ut)
 ```
+![](example.png)
 
 ## References
 
