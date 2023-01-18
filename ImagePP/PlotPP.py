@@ -3,9 +3,10 @@ import matplotlib.pyplot as plt
 import DateTimeTools as TT
 from .GetPP import GetPP
 from .PlotPlanet import PlotPlanet
+from ._SmoothBoundary import _SmoothBoundary,_SmoothBoundaryGroups
 
 
-def PlotPP(*args,fig=None,maps=[1,1,0,0],Scatter=False,**kwargs):
+def PlotPP(*args,fig=None,maps=[1,1,0,0],Scatter=False,Smooth=0,SmoothGroups=0,**kwargs):
 	
 	data = GetPP(*args)
 	
@@ -28,7 +29,15 @@ def PlotPP(*args,fig=None,maps=[1,1,0,0],Scatter=False,**kwargs):
 	if not 'color' in kwargs:
 		kwargs['color'] = 'black'
 
-	for x,y in zip(data.xg,data.yg):
+	if Smooth > 0:
+		xg,yg = _SmoothBoundary(data.x,data.y,Smooth)
+		xg = [xg]
+		yg = [yg]
+	elif SmoothGroups > 0:
+		xg,yg = _SmoothBoundaryGroups(data.xg,data.yg,SmoothGroups)
+	else:
+		xg,yg = data.xg,data.yg
+	for x,y in zip(xg,yg):
 		if Scatter:
 			ax.scatter(y,x,marker='.',**kwargs)
 		else:

@@ -1,8 +1,9 @@
 import numpy as np
 from .LoadData import LoadData
 import DateTimeTools as TT
+from ._SmoothBoundary import _SmoothBoundary,_SmoothBoundaryGroups
 
-def GetPP(*args):
+def GetPP(*args,Smooth=0):
 	
 	if len(args) == 1:
 		utc = args[0]
@@ -17,7 +18,15 @@ def GetPP(*args):
 	dt = np.abs(utc - data.utc)
 	I = dt.argmin()
 
+
+
 	if dt[I] > 1.0:
 		return None
 	else:
-		return data[I]
+		out = data[I]
+
+	if Smooth > 0:
+		out.x,out.y = _SmoothBoundary(out.x,out.y,Smooth)
+		out.xg,out.yg = _SmoothBoundaryGroups(out.xg,out.yg,Smooth)
+	
+	return out
