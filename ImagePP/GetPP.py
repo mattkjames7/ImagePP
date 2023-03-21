@@ -2,6 +2,7 @@ import numpy as np
 from .LoadData import LoadData
 import DateTimeTools as TT
 from ._SmoothBoundary import _SmoothBoundary,_SmoothBoundaryGroups
+import copy
 
 def GetPP(*args,Smooth=0):
 	
@@ -23,7 +24,7 @@ def GetPP(*args,Smooth=0):
 	if dt[I] > 1.0:
 		return None
 	else:
-		out = data[I]
+		out = copy.deepcopy(data[I])
 
 	if Smooth > 0:
 		out.x,out.y = _SmoothBoundary(out.x,out.y,Smooth)
